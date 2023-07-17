@@ -17,6 +17,7 @@ const openai = new OpenAIApi(configures);
 app.use(bodyParser.json());
 app.use(cors());
 
+//https://www.youtube.com/@samsung_svc
 app.post('/', async (request, response) => {
     const {history} = request.body;
     const result = await openai.createChatCompletion({

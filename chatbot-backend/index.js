@@ -1,8 +1,9 @@
 import {Configuration, OpenAIApi} from "openai";
-import express from "express";
-import bodyParser from "body-parser";
+import express from 'express';
+import bodyParser from 'body-parser';
 import cors from "cors";
-import configuration from './config.js';
+import configuration from "./config.js";
+import mysql from "mysql2"
 
 const app = express();
 const port = 8000;
@@ -28,7 +29,7 @@ app.post('/', async (request, response) => {
                 content: "You are a Samsung TV E-Manual Chatbot. You can only help with how to deal with samsung TV" 
             },
             ...history,
-        ],
+        ]
     });
     console.log(result.data.choices[0]);
     response.json({

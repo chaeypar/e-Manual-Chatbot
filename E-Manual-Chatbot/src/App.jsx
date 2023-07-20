@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import './App.css';
-import {text, reject_message, greeting_message} from './text';
+import {text, answers, reject_message, greeting_message} from './text';
 
 function App() {
   const [history, setHistory] = useState([]);
@@ -20,8 +20,8 @@ function App() {
     let temp_message;
 
 
-    temp_message = message + //"-> 이것이 인삿말이라면 적절한 인삿말로 답해줘. 그렇지 않다면, 이것이 삼성 TV에 탑재된 기능과 관련있는 문제인지 '예' 또는 '아니오'로 답해줘. 그 외 다른 어떤 말을 해서는 안 돼"
-    "-> If it is a greeting message, you should also greet the user. If it is related to the problem caused by functions in TV manufactured by samsung, say 'yes'. Otherwise, say 'no'. Only speak in English";
+    temp_message = message + "-> If it is a greeting message, you should also greet the user. Otherwise, say 'yes'. Only speak in English";
+    //"-> 이것이 인삿말이라면 적절한 인삿말로 답해줘. 그렇지 않다면, 이것이 삼성 TV에 탑재된 기능과 관련있는 문제인지 '예' 또는 '아니오'로 답해줘. 그 외 다른 어떤 말을 해서는 안 돼"
     //": If it is a greeting message, say the appropriate words. Otherwise, say 'yes' or 'no' whether the given statement is related to the problem caused by TV produced by samsung.";
     histories.push({role: "user", content: temp_message});
     chats.push({role: "user", content: message});
@@ -42,14 +42,17 @@ function App() {
     .then((response) => {console.log(response); return response.json()})
     .then((data) => {
       const content = data.output.content.toLowerCase();
+      console.log(content);
       if (content === 'yes'){
         histories.push({"role":"assistant", content});
         setHistory(histories);
 
         temp_message = copy + "-> If the situation in the given sentence is similar to one of the following questions, say the index of it. Otherwise, say 'no' : " + text;
         //"-> 만약 이 문장이 나타내는 상황이 다음 텍스트에서 주어진 질문들 중 하나와 일치한다면 그 질문의 index를 답해. 만약 그 어떤 것과도 같지 않다면 'no'라고 답해 : "+text;
+        
         histories.push({role: "user", content: temp_message});
         setHistory(histories);
+        
         fetch("http://localhost:8000/", {
           method: "POST",
           headers:{
@@ -61,14 +64,17 @@ function App() {
         })
         .then((response)=>response.json())
         .then((data) => {
-          console.log("!!!!");
           histories.push(data.output);
-          chats.push(data.output);
+          console.log(data.output.content);
+    
+          if (Number(data.output.content))
+            chats.push({"role":"assistant", "content": answers[Number(data.output.content)-1]});
+          else
+            chats.push({"role":"assistant", "content": reject_message});
         })
-      }
-      else if (content === 'no'){
-        histories.push({"role":"assistant", "content" : reject_message});
-        chats.push({"role":"assistant", "content" : reject_message})
+        .catch((e)=>{
+          console.log(e)
+        });
       }
       else {
         histories.push({"role":"assistant", content});

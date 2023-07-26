@@ -1,45 +1,83 @@
-import {Configuration, OpenAIApi} from "openai";
+import { TextLoader } from "langchain/document_loaders/fs/text";
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
+import { ChatOpenAI } from "langchain/chat_models/openai";
+import { ConversationalRetrievalQAChain } from "langchain/chains";
+import { BufferMemory } from "langchain/memory";
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from "cors";
-import configuration from "./config.js";
-import mysql from "mysql2"
+import cors from 'cors';
+import {answers, reject_message, greeting_message} from './text.js';
+import configuration from './config.js';
+
+process.env.OPENAI_API_KEY = configuration.apiKey;
 
 const app = express();
 const port = 8000;
 
-const configures = new Configuration({
-    organization : configuration.organization,
-    apiKey : configuration.apiKey
-});
-
-const openai = new OpenAIApi(configures);
-
 app.use(bodyParser.json());
 app.use(cors());
 
+const loader = new TextLoader("../Fine-tuning/questions.txt");
+const docs = await loader.load();
+
+const textSplitter = new RecursiveCharacterTextSplitter({
+  chunkSize: 500,
+  chunkOverlap: 0,
+});
+
+const splitDocs = await textSplitter.splitDocuments(docs);
+
+const embeddings = new OpenAIEmbeddings();
+
+const vectorStore = await MemoryVectorStore.fromDocuments(splitDocs, embeddings);
+
+const memory = new BufferMemory({
+  memoryKey: "chat_history",
+  returnMessages: true,
+});
+
+const model = new ChatOpenAI({modelName:  "gpt-3.5-turbo"});
+const chain = ConversationalRetrievalQAChain.fromLLM(model, vectorStore.asRetriever(), {
+  memory
+});
+
+function isNumber(ch){
+    if (ch >= '0' && ch <= '9')
+        return true;
+    return false;
+}
+
+function changeText(text){
+    const len = text.length;
+    let i = 0;
+    while (i < len){
+        if (isNumber(text[i]))
+            break;
+        i++;
+    }
+    if (i == len)
+        return reject_message;
+    
+    let num = 0;
+    while (i < len){
+        if (isNumber(text[i])){
+            num = num * 10 + (text[i]-'0');
+            i++;
+        }
+        else break;
+    }
+    return answers[num - 1];
+}
+
 //https://www.youtube.com/@samsung_svc
 app.post('/', async (request, response) => {
-    const {history} = request.body;
-    const result = await openai.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        messages: [
-            {
-                role: "system",
-                content: //"너는 삼성 TV e-manual Chatbot이야. 사용자의 질문에 대해 '네', '아니오', 숫자, '안녕' 외에 다른 어떤 말을 해서는 안 돼.\
-                //질문이 영어이더라도 너는 무조건 한국어로 대답해야 해. 다시 한번, '네', '아니오', '안녕', 숫자 이 외의 다른 어떤 말도 하지마"
-                "You are a Samsung TV E-Manual Chatbot.\
-                You can help with problems related to screen, sound, soundbar, remote control, connection with external device, timeshift, recording, application in TV, self test, bixby and so on.\
-                You must only answer 'hi' or 'yes' or 'no' or only numbers according to the user's message. Don't say any other words.\
-                Only speak in English. Do not speak any other languages." 
-            },
-            ...history,
-        ]
+    let chat = request.body.chat;
+    const result = await chain.call({
+        question: chat + "와 비슷한 상황을 나타내는 질문의 index를 답해. 만약 그런 질문이 없다면 '없다'라고 답해"
     });
-    console.log(result.data.choices[0]);
-    response.json({
-        output: result.data.choices[0].message,
-    });
+    response.json({output: changeText(result.text)});  
 });
 
 app.listen(port, ()=>{});

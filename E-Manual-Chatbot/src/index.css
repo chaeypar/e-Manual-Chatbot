@@ -12,7 +12,8 @@
   -webkit-text-size-adjust: 100%;
 }
 
-h1 {
+.samsung {
+  white-space: nowrap;
   font-size: 2.2em;
   line-height: 2;
   text-align: center;
@@ -21,9 +22,23 @@ h1 {
   background-color: #242424;
 }
 
+.option-instruct {
+  white-space: nowrap;
+  font-size: 1.7em;
+  line-height: 1.7;
+  text-align : center;
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
 main{
   max-width: 700px;
   margin: auto;
+}
+
+.main-description {
+  text-align : justify;
+  min-width: 600px;
 }
 
 p {
@@ -36,6 +51,26 @@ p {
 
 p span{
   margin: 5px;
+}
+
+.question_logo {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px; 
+}
+
+.selects {
+  display: flex;
+  flex-direction: column;
+}
+
+.select {
+  display : flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .userMessage{

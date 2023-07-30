@@ -85,6 +85,49 @@ p span{
   display: none;
 }
 
+.login-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.login-box{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border : 1px solid black;
+  border-radius : 10px;
+  height: 450px;
+  width : 350px;
+}
+.login-name{
+  white-space: nowrap;
+  font-size: 1.5em;
+  line-height: 1.7;
+  text-align: center;
+}
+.login-form{
+  height: 300px;
+}
+
+.login-fill{
+  width: 300px;
+}
+.login-submit{
+  width: 300px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #cefbfe;
+}
+.login-submit:hover{
+  width: 300px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #84f3fa;
+}
+
 form{
   text-align: center;
   position: sticky;

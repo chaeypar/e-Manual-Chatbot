@@ -7,17 +7,28 @@ import { ChatOpenAI } from "langchain/chat_models/openai";
 import { ConversationalRetrievalQAChain } from "langchain/chains";
 import { BufferMemory } from "langchain/memory";
 import express from 'express';
+import session from 'express-session';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import configuration from './config.js';
 import {changeText, changeText_full} from './utils/change.js';
+import firebaseRouter from './routes/firebase.js';
+import loginRouter from './routes/login.js';
+import logoutRouter from './routes/logout.js';
+
 process.env.OPENAI_API_KEY = configuration.apiKey;
 
 const app = express();
 const port = 8000;
 
+app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(session({
+	secret: 'samsung tv emanual',
+	resave: true,
+	saveUninitialized: true
+}));
 
 const loader_qonly = new TextLoader("../Fine-tuning/questions.txt");
 const loader_qna = new TextLoader("../Fine-tuning/emanual.txt");
@@ -35,6 +46,10 @@ const textSplitter = new RecursiveCharacterTextSplitter({
 });
 
 //https://www.youtube.com/@samsung_svc
+
+app.use('/firebase', firebaseRouter);
+app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 
 app.post('/langchain_txt/qonly', async (request, response) => {
     let chat = request.body.chat;
@@ -120,4 +135,4 @@ app.post('/langchain_pdf/qna', async (request, response) => {
     response.json({output: changeText_full(result.text)});
 })
 
-app.listen(port, ()=>{});
+app.listen(port, ()=>{console.log("server started!")});

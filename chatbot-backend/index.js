@@ -12,6 +12,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import configuration from './config.js';
 import {changeText, changeText_full} from './utils/change.js';
+import flash from 'connect-flash';
 import firebaseRouter from './routes/firebase.js';
 import loginRouter from './routes/login.js';
 import logoutRouter from './routes/logout.js';
@@ -29,6 +30,7 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+app.use(flash());
 
 const loader_qonly = new TextLoader("../Fine-tuning/questions.txt");
 const loader_qna = new TextLoader("../Fine-tuning/emanual.txt");

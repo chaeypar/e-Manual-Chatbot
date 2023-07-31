@@ -6,7 +6,7 @@ export default function RegisterView(props){
             <h1 className="samsung">Samsung TV E-Manual Chatbot</h1>
             <div className="register-box">
                 <h2 className="register-name">Sign Up</h2>
-                <form className="register-form" action="http://localhost:8000/login/register" method="post"> 
+                <form className="register-form" action="/login/register" method="post"> 
                     <div className="register-fill">
                         <div className="register-logo"><UserOutlined style={{ fontSize: '20px'}}/></div>
                         <div className="register-fill-inside"><input type="text" name="username" placeholder="User Name" required></input></div>

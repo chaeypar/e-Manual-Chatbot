@@ -12,16 +12,16 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import configuration from './config.js';
 import {changeText, changeText_full} from './utils/change.js';
-import flash from 'connect-flash';
 import firebaseRouter from './routes/firebase.js';
 import loginRouter from './routes/login.js';
 import logoutRouter from './routes/logout.js';
+import path from 'path';
 
 process.env.OPENAI_API_KEY = configuration.apiKey;
 
 const app = express();
 const port = 8000;
-
+const __dirname = path.resolve();
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(cors());
@@ -30,7 +30,6 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
-app.use(flash());
 
 const loader_qonly = new TextLoader("../Fine-tuning/questions.txt");
 const loader_qna = new TextLoader("../Fine-tuning/emanual.txt");
@@ -48,10 +47,15 @@ const textSplitter = new RecursiveCharacterTextSplitter({
 });
 
 //https://www.youtube.com/@samsung_svc
+app.use(express.static(path.join(__dirname, '../E-Manual-Chatbot/dist')));
 
 app.use('/firebase', firebaseRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+
+app.get('*', function(request, response){
+    response.sendFile(path.join(__dirname, "../E-Manual-Chatbot/dist/index.html"))
+})
 
 app.post('/langchain_txt/qonly', async (request, response) => {
     let chat = request.body.chat;

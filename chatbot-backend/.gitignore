@@ -24,3 +24,4 @@ yarn-error.log*
 
 # secret key for gpt api stored
 config.js
+config.py

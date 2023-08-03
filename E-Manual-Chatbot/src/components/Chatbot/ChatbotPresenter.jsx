@@ -1,7 +1,7 @@
-import LangchainView from "./LangchainView.jsx";
+import ChatbotView from "./ChatbotView.jsx";
 import {useState} from 'react';
 
-export default function Langchain(props){
+export default function Chatbot(props){
     const [message, setMessage] = useState('');
     const [chatbot, setChatbot] = useState(false);
     const [chat, setChat] = useState([]);
@@ -40,6 +40,6 @@ export default function Langchain(props){
     };
     
     return (
-        <LangchainView chat={chat} chatbot={chatbot} message={message} sendMessage={sendMessage} setMessage={setMessage}/>
+        <ChatbotView chat={chat} chatbot={chatbot} message={message} sendMessage={sendMessage} setMessage={setMessage}/>
     )
 }

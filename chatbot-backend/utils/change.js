@@ -29,8 +29,11 @@ export function changeText(text){
 }
 
 export function changeText_full(text){
-    if (text[0] === '없' && text[1] === '다')
-        return reject_message;
-    else
-        return text;
+    let i = 0;
+    while (i < text.length - 1){
+        if (text[i]=='없' && text[i+1]=='다')
+            return reject_message;
+        i++;
+    }
+    return text;
 }

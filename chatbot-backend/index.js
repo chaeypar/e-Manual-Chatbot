@@ -15,13 +15,16 @@ import {changeText, changeText_full} from './utils/change.js';
 import firebaseRouter from './routes/firebase.js';
 import loginRouter from './routes/login.js';
 import logoutRouter from './routes/logout.js';
+import llamaindexRouter from './routes/llama_index.js';
 import path from 'path';
+import childs from 'child_process';
 
 process.env.OPENAI_API_KEY = configuration.apiKey;
 
 const app = express();
 const port = 8000;
 const __dirname = path.resolve();
+
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(cors());
@@ -40,23 +43,18 @@ const docs_qonly = await loader_qonly.load();
 const docs_qna = await loader_qna.load();
 const pdfs_qonly = await pdfloader_qonly.load();
 const pdfs_qna = await pdfloader_qna.load();
-
 const textSplitter = new RecursiveCharacterTextSplitter({
   chunkSize: 500,
   chunkOverlap: 0,
 });
 
 //https://www.youtube.com/@samsung_svc
-app.use(express.static(path.join(__dirname, '../E-Manual-Chatbot/dist')));
+//app.use(express.static(path.join(__dirname, '../E-Manual-Chatbot/dist')));
 
 app.use('/firebase', firebaseRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-
-app.get('*', function(request, response){
-    response.sendFile(path.join(__dirname, "../E-Manual-Chatbot/dist/index.html"))
-})
-
+app.use('/llama_index', llamaindexRouter);
 app.post('/langchain_txt/qonly', async (request, response) => {
     let chat = request.body.chat;
     const splitDocs = await textSplitter.splitDocuments(docs_qonly);
@@ -140,5 +138,12 @@ app.post('/langchain_pdf/qna', async (request, response) => {
     });
     response.json({output: changeText_full(result.text)});
 })
+
+
+/*
+app.get('*', function(request, response){
+    response.sendFile(path.join(__dirname, "../E-Manual-Chatbot/dist/index.html"))
+})
+*/
 
 app.listen(port, ()=>{console.log("server started!")});

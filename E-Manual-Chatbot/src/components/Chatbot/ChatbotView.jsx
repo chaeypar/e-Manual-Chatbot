@@ -1,4 +1,4 @@
-export default function LangchainView(props){
+export default function ChatbotView(props){
     return (
         <main>
           <h1 className="samsung">Samsung TV E-Manual Chatbot</h1>

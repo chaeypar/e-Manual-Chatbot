@@ -1,7 +1,9 @@
+import Navigation from "../Navigation/Navigation";
+
 export default function ChatbotView(props){
     return (
         <main>
-          <h1 className="samsung">Samsung TV E-Manual Chatbot</h1>
+          <Navigation/>
           <div className="chat_history">
             {props.chat && props.chat.length
             ? props.chat.map((chat, index) => (

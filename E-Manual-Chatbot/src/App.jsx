@@ -13,10 +13,10 @@ function App() {
           <Route path="/" element={<Main/>}/>
           <Route path="/login/register" element={<Register/>}/>
           <Route path="/login" element={<Login/>}/>
-          <Route path="/langchain_txt/qonly" element={<Chatbot type="/langchain_txt/qonly"/>}/>
-          <Route path="/langchain_txt/qna" element={<Chatbot type="/langchain_txt/qna"/>}/>
-          <Route path="/langchain_pdf/qonly" element={<Chatbot type="/langchain_pdf/qonly"/>}/>
-          <Route path="/langchain_pdf/qna" element={<Chatbot type="/langchain_pdf/qna"/>}/>
+          <Route path="/langchain/txt/qonly" element={<Chatbot type="/langchain/txt/qonly"/>}/>
+          <Route path="/langchain/txt/qna" element={<Chatbot type="/langchain/txt/qna"/>}/>
+          <Route path="/langchain/pdf/qonly" element={<Chatbot type="/langchain/pdf/qonly"/>}/>
+          <Route path="/langchain/pdf/qna" element={<Chatbot type="/langchain/pdf/qna"/>}/>
           <Route path="/llama_index/pdf/qonly" element={<Chatbot type="/llama_index/pdf/qonly"/>}/>
           <Route path="/llama_index/pdf/qna" element={<Chatbot type="/llama_index/pdf/qna"/>}/>
           <Route path="/llama_index/txt/qonly" element={<Chatbot type="/llama_index/txt/qonly"/>}/>

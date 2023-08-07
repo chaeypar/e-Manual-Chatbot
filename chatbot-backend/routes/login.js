@@ -13,7 +13,7 @@ connection.connect();
 
 var router = express.Router();
 
-const url = 'http://localhost:8000';
+const url = 'http://localhost:5173';
 
 router.post('/', function(request, response) {
 	const email = request.body.email;
@@ -40,13 +40,21 @@ router.post('/register', function(request, response) {
 
 	connection.query('SELECT * FROM accounts WHERE email = ?', [email], function(error, results, fields) {
 		if (results.length > 0) {
-			response.redirect(url+'/login/register');
+			const redirectUrl = url + '/login/register';
+			response.write("<script>alert('This email address is already registered')</script>");
+			response.write(`<script>window.location="${redirectUrl}"</script>`);
 		} else if (!/\S+@\S+\.\S+/.test(email)) {
-			response.redirect(url+'/login/register');
+			const redirectUrl = url + '/login/register';
+			response.write("<script>alert('Check your email address!')</script>");
+			response.write(`<script>window.location="${redirectUrl}"</script>`);
 		} else if (!/[A-Za-z0-9]+/.test(username)){
-			response.redirect(url+'/login/register');
+			const redirectUrl = url + '/login/register';
+			response.write("<script>alert('Username should only consist of alphabets and numbers')</script>");
+			response.write(`<script>window.location="${redirectUrl}"</script>`);
 		}else if (password.length < 8){
-			response.redirect(url+'/login/register');
+			const redirectUrl = url + '/login/register';
+			response.write("<script>alert('Password is too short!')</script>");
+			response.write(`<script>window.location="${redirectUrl}"</script>`);
 		} else{
 			var transporter = nodemailer.createTransport({
 				host: 'smtp.gmail.com',
@@ -57,21 +65,19 @@ router.post('/register', function(request, response) {
 			var mailOptions = {
 				from: '"Chaeyeon Park / E-manual Chatbot" <kidsland09@snu.ac.kr>',
 				to: email,
-				subject: 'Account Activation Required',
-				text: 'for test'
+				subject: 'Thank you for joining us, Samsung TV E-Manual Chatbot',
+				text: 'Welcome!'
 			};
 			connection.query('INSERT INTO accounts VALUES ( ?, ?, ?)', [username, password, email], function(error, results, fields) {
 				transporter.sendMail(mailOptions, function(error, info) {
 					if (error) {
 						return console.log(error);
 					}
-					console.log('Message %s sent: %s', info.messageId, info.response);
 				});
 				response.redirect(url+'/login');
 			});
 		} 
 	});
-
 });
 
 export default router;

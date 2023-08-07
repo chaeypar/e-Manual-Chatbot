@@ -97,4 +97,16 @@ const steps = [
     },
 ];
 
-export default steps; 
+const theme = {
+    background: '#f5f8fb',
+    fontFamily: 'Helvetica Neue',
+    headerBgColor: '#EF6C00',
+    headerFontColor: '#fff',
+    headerFontSize: '15px',
+    botBubbleColor: '#F29F05',
+    botFontColor: '#FFF',
+    userBubbleColor: '#fff',
+    userFontColor: '#4a4a4a'
+}
+
+export {steps, theme}; 

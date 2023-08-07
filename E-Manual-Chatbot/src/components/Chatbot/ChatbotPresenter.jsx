@@ -1,5 +1,6 @@
 import ChatbotView from "./ChatbotView.jsx";
 import {useState} from 'react';
+import findTime from "../../../../chatbot-backend/utils/findTime.js";
 
 export default function Chatbot(props){
     const [message, setMessage] = useState('');
@@ -12,8 +13,10 @@ export default function Chatbot(props){
         return;
     
       let chats = chat;
-  
-      chats.push({role: "user", content: msg});
+      
+      let user_time = findTime();
+      
+      chats.push({role: "user", content: msg, time: user_time});
       setChat([...chats]);
       setChatbot(true);
       setMessage('');
@@ -29,7 +32,8 @@ export default function Chatbot(props){
       })
       .then((response) => response.json())
       .then((data) => {
-        chats.push({role: "assistant", content : data.output});
+        let assist_time = findTime();
+        chats.push({role: "assistant", content : data.output, time: assist_time});
         console.log(chatbot);
         setChat([...chats]);
         setChatbot(false);

@@ -5,7 +5,7 @@ export default function RegisterView(props){
         <div className="register-page">
             <Navigation/>
             <div className="register-box">
-                <form className="register-form" action="/login/register" method="post"> 
+                <form className="register-form" action="http://localhost:8000/login/register" method="post"> 
                     <h2 className="register-name">Sign Up</h2>
                     <div className="register-fill">
                         <div className="register-logo"><UserOutlined style={{ fontSize: '20px'}}/></div>

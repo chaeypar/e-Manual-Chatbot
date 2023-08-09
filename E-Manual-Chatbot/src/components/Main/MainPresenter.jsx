@@ -11,7 +11,6 @@ export default function Main(props){
           
           const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-              console.log(entry.isIntersecting);
               if (entry.isIntersecting) {
                 entry.target.classList.add("active");
               } else {

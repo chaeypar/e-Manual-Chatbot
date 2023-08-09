@@ -19,58 +19,76 @@ export default function MainView (props){
         pauseOnHover: true,
       };
     return (
-        <main className="main">
+        <main className="main-page">
             <Navigation/>
             <Slider className="top-slider" {...settings}>
                 <div className="main-slider">
-                    <img src={img2} className="slider"/>
+                    <img src={img1} className="slider"/>
                 </div>
                 <div className="main-slider">
-                    <img src={img1} className="slider"/>
+                    <img src={img2} className="slider"/>
                 </div>
                 <div className="main-slider">
                     <img src={img3} className="slider"/>
                 </div>
             </Slider>
-            <div className="main-selects">  
-                <div className="main-title">Langchain 기반 챗봇 소개</div>
-                <div className="main-selects-inside">
-                    <div className="main-select">
-                        <h5 className="select-title">질문 텍스트 매뉴얼</h5>
-                        <div className="select-content"><div className="core">질문</div>만으로 구성된 <div className="core">텍스트 매뉴얼</div>을 이용한 <div className="core">Langchain</div> 기반 모델을 만나보세요.</div>
-                    </div>
-                    <div className="main-select">
-                        <h5 className="select-title">질문 pdf 매뉴얼</h5>
-                        <div className="select-content"><div className="core">질문</div>만으로 구성된 <div className="core">PDF 매뉴얼</div>을 이용한 <div className="core">Langchain</div> 기반 모델을 만나보세요.</div>
-                    </div>
-                    <div className="main-select">
-                        <h5 className="select-title">Q&A 텍스트 매뉴얼</h5>
-                        <div className="select-content"><div className="core">질문과 답변</div>으로 구성된 <div className="core">텍스트 매뉴얼</div>을 이용한 <div className="core">Langchain</div> 기반 모델을 만나보세요.</div>
-                    </div>
-                    <div className="main-select">
-                        <h5 className="select-title">Q&A pdf 매뉴얼</h5>
-                        <div className="select-content"><div className="core">질문과 답변</div>으로 구성된 <div className="core">PDF 매뉴얼</div>을 이용한 <div className="core">Langchain</div> 기반 모델을 만나보세요.</div>
+            <div className="main-wrapper">
+                <div className="main-selects">  
+                    <div className="main-title">Langchain 기반 챗봇 소개</div>
+                    <div className="main-selects-inside">
+                        <div className="main-select">
+                            <a className="main-anchor" href="/langchain/txt/qonly">
+                                <h5 className="select-title">질문 Text 매뉴얼</h5>
+                                <div className="select-content"><div className="core">질문</div>만으로 구성된 <div className="core">Text 매뉴얼</div>을 이용한 <div className="core">Langchain</div> 기반 모델을 만나보세요.</div>
+                            </a>
+                        </div>
+                        <div className="main-select">
+                            <a className="main-anchor" href="/langchain/pdf/qonly">
+                                <h5 className="select-title">질문 PDF 매뉴얼</h5>
+                                <div className="select-content"><div className="core">질문</div>만으로 구성된 <div className="core">PDF 매뉴얼</div>을 이용한 <div className="core">Langchain</div> 기반 모델을 만나보세요.</div>
+                            </a>
+                        </div>
+                        <div className="main-select">
+                            <a className="main-anchor" href="/langchain/txt/qna">
+                                <h5 className="select-title">Q&A Text 매뉴얼</h5>
+                                <div className="select-content"><div className="core">질문과 답변</div>으로 구성된 <div className="core">Text 매뉴얼</div>을 이용한 <div className="core">Langchain</div> 기반 모델을 만나보세요.</div>
+                            </a>
+                        </div>
+                        <div className="main-select">
+                            <a className="main-anchor" href="/langchain/pdf/qna">
+                                <h5 className="select-title">Q&A PDF 매뉴얼</h5>
+                                <div className="select-content"><div className="core">질문과 답변</div>으로 구성된 <div className="core">PDF 매뉴얼</div>을 이용한 <div className="core">Langchain</div> 기반 모델을 만나보세요.</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="main-selects">
-                <div className="main-title">Llama index 기반 챗봇 소개</div>
-                <div className="main-selects-inside">
-                    <div className="main-select">
-                        <h5 className="select-title">질문 텍스트 매뉴얼</h5>
-                        <div className="select-content"><div className="core">질문</div>만으로 구성된 <div className="core">텍스트 매뉴얼</div>을 이용한 <div className="core">Llama index</div> 기반 모델을 만나보세요.</div>
-                    </div>
-                    <div className="main-select">
-                        <h5 className="select-title">질문 pdf 매뉴얼</h5>
-                        <div className="select-content"><div className="core">질문</div>만으로 구성된 <div className="core">PDF 매뉴얼</div>을 이용한 <div className="core">Llama index</div> 기반 모델을 만나보세요.</div>
-                    </div>
-                    <div className="main-select">
-                        <h5 className="select-title">Q&A 텍스트 매뉴얼</h5>
-                        <div className="select-content"><div className="core">질문과 답변</div>으로 구성된 <div className="core">텍스트 매뉴얼</div>을 이용한 <div className="core">Llama index</div> 기반 모델을 만나보세요.</div>
-                    </div>
-                    <div className="main-select">
-                        <h5 className="select-title">Q&A pdf 매뉴얼</h5>
-                        <div className="select-content"><div className="core">질문과 답변</div>으로 구성된 <div className="core">PDF 매뉴얼</div>을 이용한 <div className="core">Llama index</div> 기반 모델을 만나보세요.</div>
+                <div className="main-selects">
+                    <div className="main-title">Llama Index 기반 챗봇 소개</div>
+                    <div className="main-selects-inside">
+                        <div className="main-select">
+                            <a className="main-anchor" href="/llama_index/txt/qonly">
+                                <h5 className="select-title">질문 Text 매뉴얼</h5>
+                                <div className="select-content"><div className="core">질문</div>만으로 구성된 <div className="core">Text 매뉴얼</div>을 이용한 <div className="core">Llama index</div> 기반 모델을 만나보세요.</div>
+                            </a>
+                        </div>
+                        <div className="main-select">
+                            <a className="main-anchor" href="/llama_index/pdf/qonly">
+                                <h5 className="select-title">질문 PDF 매뉴얼</h5>
+                                <div className="select-content"><div className="core">질문</div>만으로 구성된 <div className="core">PDF 매뉴얼</div>을 이용한 <div className="core">Llama index</div> 기반 모델을 만나보세요.</div>
+                            </a>
+                        </div>
+                        <div className="main-select">
+                            <a className="main-anchor" href="/llama_index/txt/qna">
+                                <h5 className="select-title">Q&A Text 매뉴얼</h5>
+                                <div className="select-content"><div className="core">질문과 답변</div>으로 구성된 <div className="core">Text 매뉴얼</div>을 이용한 <div className="core">Llama index</div> 기반 모델을 만나보세요.</div>
+                            </a>
+                        </div>
+                        <div className="main-select">
+                            <a className="main-anchor" href="/llama_index/pdf/qna">
+                                <h5 className="select-title">Q&A PDF 매뉴얼</h5>
+                                <div className="select-content"><div className="core">질문과 답변</div>으로 구성된 <div className="core">PDF 매뉴얼</div>을 이용한 <div className="core">Llama index</div> 기반 모델을 만나보세요.</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

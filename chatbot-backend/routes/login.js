@@ -6,7 +6,8 @@ var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
 	password : sqlConfig,
-	database : 'emanual'
+	database : 'emanual',
+	connectTimeout: 600000,
 });
 
 connection.connect();
@@ -63,7 +64,7 @@ router.post('/register', function(request, response) {
 				auth: authentication
 			});
 			var mailOptions = {
-				from: '"Chaeyeon Park / E-manual Chatbot" <kidsland09@snu.ac.kr>',
+				from: '"Chaeyeon Park / e-Manual Chatbot" <kidsland09@snu.ac.kr>',
 				to: email,
 				subject: 'Thank you for joining us, Samsung TV E-Manual Chatbot',
 				text: 'Welcome!'

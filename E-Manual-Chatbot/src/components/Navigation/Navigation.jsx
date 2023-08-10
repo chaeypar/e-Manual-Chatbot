@@ -7,7 +7,7 @@ export default function Navigation(props) {
     return (
         <Navbar fixed="top" collapseOnSelect expand="lg" className="nav-bar bg-body-tertiary">
         <Container >
-          <Navbar.Brand href="/">Samsung TV E-Manual Chatbot</Navbar.Brand>
+          <Navbar.Brand href="/">Samsung TV e-Manual Chatbot</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">

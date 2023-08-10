@@ -9,7 +9,7 @@ export default function RegisterView(props){
                     <h2 className="register-name">Sign Up</h2>
                     <div className="register-fill">
                         <div className="register-logo"><UserOutlined style={{ fontSize: '20px'}}/></div>
-                        <input className="register-fill-inside" type="text" name="username" placeholder="User Name" required></input>
+                        <input className="register-fill-inside" type="text" name="username" placeholder="Username" required></input>
                     </div>
                     <div className="register-fill">
                         <div className="register-logo"><MailOutlined style={{ fontSize: '20px'}}/></div>

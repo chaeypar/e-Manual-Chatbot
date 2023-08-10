@@ -63,6 +63,6 @@ GPT-API provided by OPEN AI is used for the project. For more information about 
 
 If there are any updates related to unexpected bugs, I will let you know here. 
 
-## The contributor of 'Samsung TV E-Manaul Chatbot'
+## The contributor of 'Samsung TV E-Manual Chatbot'
 
 Chaeyeon Park, Seoul National University, Department of Mathematical Sciences

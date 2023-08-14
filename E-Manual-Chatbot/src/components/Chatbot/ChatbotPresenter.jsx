@@ -21,7 +21,7 @@ export default function Chatbot(props){
       setChatbot(true);
       setMessage('');
       
-      fetch("http://localhost:8000"+props.type , {
+      fetch(props.type , {
         method : "POST",
         headers:{
           "Content-Type" : "application/json"

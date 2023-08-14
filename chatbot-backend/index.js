@@ -28,7 +28,7 @@ app.use(session({
 
 //https://www.youtube.com/@samsung_svc
 app.use(express.static(path.join(__dirname, '../E-Manual-Chatbot/dist')));
-//app.use(express.static(path.join(__dirname, './img')));
+app.use(express.static(path.join(__dirname, './img')));
 
 app.use('/firebase', firebaseRouter);
 app.use('/login', loginRouter);

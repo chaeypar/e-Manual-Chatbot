@@ -14,7 +14,7 @@ connection.connect();
 
 var router = express.Router();
 
-const url = 'http://localhost:5173';
+const url = '';
 
 router.post('/', function(request, response) {
 	const email = request.body.email;

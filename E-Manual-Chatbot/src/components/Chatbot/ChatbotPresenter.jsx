@@ -11,9 +11,9 @@ export default function Chatbot(props){
   
     const navigate = useNavigate();
     useEffect(()=>{
-      if (localStorage.getItem('isLoggined') != "true")
+      if (localStorage.getItem('isLoggedIn') != "true")
         navigate('/login');
-    }, [localStorage.getItem('isLoggined')]);
+    }, [localStorage.getItem('isLoggedIn')]);
 
 
     const sendMessage = async (e, msg)=>{

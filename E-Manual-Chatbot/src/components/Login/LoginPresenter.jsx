@@ -5,7 +5,7 @@ export default function Login(props){
     const navigate = useNavigate();
     const handleLogin = async (e) => {
         e.preventDefault();
-        fetch("http://localhost:8000/login", {
+        fetch("/login", {
             method : "POST",
             headers:{
               "Content-Type" : "application/json"

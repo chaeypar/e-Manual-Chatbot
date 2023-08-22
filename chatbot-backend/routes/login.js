@@ -22,14 +22,12 @@ router.post('/', function(request, response) {
 
 	connection.query('SELECT * FROM accounts WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
 		if (results.length > 0) {
-			request.session.loggedin = true;
+			request.session.isLoggined = true;
+			request.session.user = results[0].username;
 			request.session.email = email;
-			request.session.username = results[0].username;
-			response.redirect(url+'/');
+			response.json({auth: true, email: email, user: results[0].username});
 		} else {
-			const redirectUrl = url +'/login'
-			response.write("<script>alert('Invalid email or password')</script>");
-			response.write(`<script>window.location="${redirectUrl}"</script>`);
+			response.json({auth: false});
 		}
 	});
 });

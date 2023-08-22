@@ -1,12 +1,21 @@
 import ChatbotView from "./ChatbotView.jsx";
 import {useState} from 'react';
 import findTime from "../../../../chatbot-backend/utils/findTime.js";
+import {useNavigate} from 'react-router-dom';
+import {useEffect} from 'react';
 
 export default function Chatbot(props){
     const [message, setMessage] = useState('');
     const [chatbot, setChatbot] = useState(false);
     const [chat, setChat] = useState([]);
   
+    const navigate = useNavigate();
+    useEffect(()=>{
+      if (localStorage.getItem('isLoggined') != "true")
+        navigate('/login');
+    }, [localStorage.getItem('isLoggined')]);
+
+
     const sendMessage = async (e, msg)=>{
       e.preventDefault();
       if (!msg)

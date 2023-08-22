@@ -2,9 +2,8 @@ import Navigation from "../Navigation/Navigation";
 import sendImage from './img/send.png';
 import robotImage from './img/robot.png';
 import Assistant from "../Assistant/Assistant";
-
 export default function ChatbotView(props){
-    const generateItem = (chat, index) => {
+  const generateItem = (chat, index) => {
       if (chat.role === "user"){
         return (
           <div key={index} className="chat-item-user">

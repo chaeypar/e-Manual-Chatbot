@@ -6,7 +6,7 @@ export default function LoginView(props){
     <div className="login-page">
         <Navigation/>
         <div className="login-box">
-            <form className="login-form" action="/login" method="post"> 
+            <form className="login-form" action="" method="post" onSubmit={props.handleLogin}> 
             <h2 className="login-name">Log In</h2>
                 <div className="login-fill">
                     <div className="login-logo"><MailOutlined  style={{ fontSize: '20px'}}/></div>

@@ -14,7 +14,7 @@ export default function Navigation(props) {
             </Nav>
             <Nav>
               <Nav.Link href="https://www.samsungsvc.co.kr/">Service Center</Nav.Link>
-              <Nav.Link eventKey={2} href="/login">Login</Nav.Link>
+              <Nav.Link eventKey={2} href={localStorage.getItem('isLoggedIn')=="true" ? "/logout" : "/login"}>{localStorage.getItem('isLoggedIn')=="true" ? "Log Out" : "Log In"}</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

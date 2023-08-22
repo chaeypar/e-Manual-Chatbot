@@ -3,7 +3,8 @@ var router = express.Router();
 
 router.get('/', function(request, response) {
 	request.session.destroy();
-	response.redirect('/');
+	response.write(`<script>localStorage.clear()</script>`);
+	response.write(`<script>window.location="/"</script>`);
 });
 
 export default router;
